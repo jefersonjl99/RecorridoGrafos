@@ -18,6 +18,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -40,6 +41,7 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
     private JButton B_Ancho, B_Profundidad, B_Reinicio, B_Adyacencia, B_Grafo, B_Topografico, B_Limpiar, B_Cerrar;
     Color black, blueWhite, blue, blueheavy, blue2, white;
     private JComboBox Box_Origen;
+    private List<Integer>[] coordenadasXY = new ArrayList[2];
     int x, y, contador;
     private GrafoLogica gl;
     private Graphics g;
@@ -69,6 +71,8 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
         Etiquetas();
         Botones();
         Boxes();
+        coordenadasXY[0] = new ArrayList<>();
+        coordenadasXY[1] = new ArrayList<>();
     }
 
     private void Colores() {
@@ -150,7 +154,7 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
 
         B_Reinicio = new JButton("Reiniciar");
         B_Reinicio.setFont(new Font("Impact", Font.PLAIN, 15));
-        B_Reinicio.setBounds(1225, 10, 100, 30);
+        B_Reinicio.setBounds(1125, 10, 100, 30);
         B_Reinicio.setForeground(Color.white);
         B_Reinicio.setBackground(Color.black);
         B_Reinicio.addActionListener(this);
@@ -182,6 +186,7 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == B_Ancho) {
+            P_Arbol.paint(P_Arbol.getGraphics());
             System.out.println("Calculando ancho...");
             B_Reinicio.setVisible(true);
             B_Limpiar.setVisible(true);
@@ -194,6 +199,7 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
 
         }
         if (e.getSource() == B_Profundidad) {
+            P_Arbol.paint(P_Arbol.getGraphics());
             System.out.println("Calculando profundidad...");
             B_Reinicio.setVisible(true);
             B_Limpiar.setVisible(true);
@@ -226,6 +232,8 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
             B_Reinicio.setVisible(true);
         }
         if (e.getSource() == B_Grafo) {
+            P_Grafo.paint(P_Grafo.getGraphics());
+            verificarCordenadas();
             System.out.println("Creando grafo...");
             int f = gl.getVertices().size();
             int c = gl.getVertices().size() - 1;
@@ -426,6 +434,17 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
         }
     }
 
+    private void verificarCordenadas() {
+        setDatos();
+        Box_Origen.removeAllItems();
+        for (int j = 0; j < coordenadasXY[0].size(); j++) {
+            anadirCirculo(coordenadasXY[0].get(j), coordenadasXY[1].get(j), g);
+            g.setColor(Color.blue);
+            g.drawOval(coordenadasXY[0].get(j), coordenadasXY[1].get(j), 20, 20);
+            g.drawString(String.valueOf(contador), coordenadasXY[0].get(j) + 3, coordenadasXY[1].get(j) + 15);
+        }
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getButton() == 1) {
@@ -436,6 +455,8 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
             y = e.getY();
             g = P_Grafo.getGraphics();
             anadirCirculo(x, y, g);
+            coordenadasXY[0].add(x);
+            coordenadasXY[1].add(y);
         }
     }
 
