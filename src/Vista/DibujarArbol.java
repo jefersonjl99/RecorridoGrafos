@@ -43,10 +43,10 @@ public class DibujarArbol<E> {
     }
 
     private void dibujar(Graphics g, Elemento<E> raiz, int x, int y, int espacioH) {
-        g.setColor(Color.blue);
+        g.setColor(Color.RED);
         g.drawOval(x - radio, y - radio, 2 * radio, 2 * radio);
         g.drawString(raiz.getElemento() + "", x - 6, y + 4);
-        g.setColor(Color.black);
+        g.setColor(Color.BLACK);
         ArrayList<Elemento<E>> hijos = arbolGeneral.obtenerHijos(raiz);
         coordenadas.put(raiz, new Point(x, y));
         for (Elemento<E> hijo : hijos) {
@@ -63,7 +63,7 @@ public class DibujarArbol<E> {
         int yy1 = (int) (y1 - radio * (y1 - y2) / d);
         int xx2 = (int) (x2 + radio * (x1 - x2) / d);
         int yy2 = (int) (y2 + radio * (y1 - y2) / d);
-
+        g.setColor(Color.BLACK);
         g.drawLine(xx1, yy1, xx2, yy2);
 
     }

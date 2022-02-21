@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/drago/OneDrive/Documentos/NetBeansProjects/Grafos/src/Vista/Ventana.java</file>
-            <file>file:/C:/Users/drago/OneDrive/Documentos/NetBeansProjects/Grafos/src/grafos/Grafos.java</file>
-            <file>file:/C:/Users/drago/OneDrive/Documentos/NetBeansProjects/Grafos/src/Vista/DibujarArbol.java</file>
+            <file>file:/C:/Users/jefer/Desktop/Grafos/src/Arboles/Elemento.java</file>
+            <file>file:/C:/Users/jefer/Desktop/Grafos/src/Vista/DibujarArbol.java</file>
+            <file>file:/C:/Users/jefer/Desktop/Grafos/src/grafos/GrafoLogica.java</file>
+            <file>file:/C:/Users/jefer/Desktop/Grafos/src/Vista/Ventana.java</file>
         </group>
     </open-files>
 </project-private>

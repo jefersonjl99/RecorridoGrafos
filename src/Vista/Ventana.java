@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -45,6 +46,7 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
     int x, y, contador;
     private GrafoLogica gl;
     private Graphics g;
+    private boolean verificando = false;
 
     private int matrizAd[][];
     private JTextField leer[][];
@@ -52,9 +54,10 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
     JScrollPane scrollMat = new JScrollPane(P_Adyacencia, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
     public Ventana() {
-        this.setTitle("Grafos");
+        this.setTitle("Recorrido Grafos");
+        this.setIconImage(new ImageIcon(getClass().getResource("/recursos/grafo.png")).getImage());
         setLayout(null);
-        setBounds(30, 30, 1350, 750);
+        setBounds(30, 30, 1200, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -93,8 +96,8 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
 
         P_Grafo = new JPanel();
         P_Grafo.setLayout(null);
-        P_Grafo.setBounds(0, 55, 600, 480);
-        P_Grafo.setBackground(white);
+        P_Grafo.setBounds(0, 35, 600, 400);
+        P_Grafo.setBackground(black);
         P_Grafo.setBorder(BorderFactory.createLineBorder(Color.black));
         P_Grafo.addMouseListener(this);
         P_Grafo.addMouseMotionListener(this);
@@ -116,70 +119,69 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
 
     private void Etiquetas() {
         L_Titulo = new JLabel("Recorridos Grafo");
-        L_Titulo.setForeground(black);
+        L_Titulo.setForeground(Color.DARK_GRAY);
         L_Titulo.setFont(new Font("Impact", Font.PLAIN, 25));
         L_Titulo.setBounds(30, 15, 400, 20);
         P_Titulo.add(L_Titulo);
 
-        L_Dibujo = new JLabel("Dibujar grafo");
-        L_Dibujo.setForeground(black);
-        L_Dibujo.setFont(new Font("Impact", Font.PLAIN, 20));
-        L_Dibujo.setBounds(30, 10, 400, 40);
-        P_Ingreso.add(L_Dibujo);
-
+//        L_Dibujo = new JLabel("Dibujar grafo");
+//        L_Dibujo.setForeground(black);
+//        L_Dibujo.setFont(new Font("Impact", Font.PLAIN, 20));
+//        L_Dibujo.setBounds(30, 10, 400, 40);
+//        P_Ingreso.add(L_Dibujo);
         L_Origen = new JLabel("Origen");
-        L_Origen.setForeground(black);
+        L_Origen.setForeground(Color.DARK_GRAY);
         L_Origen.setFont(new Font("Impact", Font.PLAIN, 20));
-        L_Origen.setBounds(50, 550, 200, 40);
+        L_Origen.setBounds(50, 450, 200, 40);
         P_Ingreso.add(L_Origen).setVisible(false);
 
     }
 
     private void Botones() {
-        B_Ancho = new JButton("Recorrido ancho");
+        B_Ancho = new JButton("Ancho");
         B_Ancho.setFont(new Font("Impact", Font.PLAIN, 15));
-        B_Ancho.setBounds(50, 600, 200, 50);
+        B_Ancho.setBounds(250, 450, 100, 30);
         B_Ancho.setForeground(Color.white);
-        B_Ancho.setBackground(Color.black);
+        B_Ancho.setBackground(Color.darkGray);
         B_Ancho.addActionListener(this);
         P_Ingreso.add(B_Ancho).setVisible(false);
 
-        B_Profundidad = new JButton("Recorrido profundidad");
+        B_Profundidad = new JButton("Profundidad");
         B_Profundidad.setFont(new Font("Impact", Font.PLAIN, 15));
-        B_Profundidad.setBounds(300, 600, 200, 50);
+        B_Profundidad.setBounds(355, 450, 150, 30);
         B_Profundidad.setForeground(Color.white);
-        B_Profundidad.setBackground(Color.black);
+        B_Profundidad.setBackground(Color.darkGray);
         B_Profundidad.addActionListener(this);
         P_Ingreso.add(B_Profundidad).setVisible(false);
 
         B_Reinicio = new JButton("Reiniciar");
         B_Reinicio.setFont(new Font("Impact", Font.PLAIN, 15));
-        B_Reinicio.setBounds(1125, 10, 100, 30);
+        B_Reinicio.setBounds(380, 10, 100, 30);
         B_Reinicio.setForeground(Color.white);
-        B_Reinicio.setBackground(Color.black);
+        B_Reinicio.setBackground(Color.darkGray);
         B_Reinicio.addActionListener(this);
         P_Titulo.add(B_Reinicio).setVisible(false);
 
         B_Adyacencia = new JButton("Lista adyacencia");
         B_Adyacencia.setFont(new Font("Impact", Font.PLAIN, 15));
-        B_Adyacencia.setBounds(445, 5, 150, 40);
+        B_Adyacencia.setBounds(225, 10, 150, 30);
         B_Adyacencia.setForeground(Color.white);
-        B_Adyacencia.setBackground(Color.black);
-        P_Ingreso.add(B_Adyacencia).setVisible(false);
+        B_Adyacencia.setBackground(Color.darkGray);
+        P_Titulo.add(B_Adyacencia).setVisible(false);
         B_Adyacencia.addActionListener(this);
 
         B_Limpiar = new JButton("Limpiar");
         B_Limpiar.setFont(new Font("Impact", Font.BOLD, 15));
-        B_Limpiar.setBounds(280, 550, 100, 30);
+        B_Limpiar.setBounds(510, 450, 100, 30);
         B_Limpiar.setForeground(Color.white);
-        B_Limpiar.setBackground(Color.black);
+        B_Limpiar.setBackground(Color.darkGray);
         P_Ingreso.add(B_Limpiar).setVisible(false);
         B_Limpiar.addActionListener(this);
     }
 
     private void Boxes() {
         Box_Origen = new JComboBox();
-        Box_Origen.setBounds(150, 550, 100, 30);
+        Box_Origen.setBounds(145, 450, 100, 30);
         P_Ingreso.add(Box_Origen).setVisible(false);
     }
 
@@ -301,7 +303,7 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
         B_Grafo.setFont(new Font("Impact", Font.PLAIN, 15));
         P_Adyacencia.add(B_Grafo).setVisible(true);
         B_Grafo.setForeground(Color.white);
-        B_Grafo.setBackground(Color.black);
+        B_Grafo.setBackground(Color.DARK_GRAY);
         B_Grafo.addActionListener(this);
         B_Grafo.setBounds(20, posBoton, 150, 40);
 
@@ -316,7 +318,8 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
     public void guardarMatriz(int f, int c) {
         for (int i = 0; i < f; i++) {
             for (int j = 0; j < c; j++) {
-                matrizAd[i][j] = Integer.parseInt(leer[j][i].getText());
+                int a = Integer.parseInt(leer[j][i].getText());
+                matrizAd[i][j] = a;
                 System.out.print(matrizAd[i][j] + " ");
             }
             System.out.println("");
@@ -359,6 +362,8 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
     }
 
     public void setDatos() {
+        coordenadasXY[0] = new ArrayList<>();
+        coordenadasXY[1] = new ArrayList<>();
         contador = 0;
         x = 0;
         y = 0;
@@ -368,12 +373,23 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
     public void anadirCirculo(int x, int y, Graphics g) {
         contador++;
         Box_Origen.addItem(contador);
-        g.setColor(Color.blue);
+        g.setColor(Color.RED);
         g.drawOval(x, y, 20, 20);
         g.drawString(String.valueOf(contador), x + 3, y + 15);
-        gl.getCoordVertices().add(x + "," + y);
-        gl.getVertices().add(contador);
+        if (!verificando) {
+            gl.getCoordVertices().add(x + "," + y);
+            gl.getVertices().add(contador);
+        }
+    }
 
+    private void verificarCordenadas() {
+        contador = 0;
+        verificando = true;
+        Box_Origen.removeAllItems();
+        for (int j = 0; j < coordenadasXY[0].size(); j++) {
+            anadirCirculo(coordenadasXY[0].get(j), coordenadasXY[1].get(j), g);
+        }
+        verificando = false;
     }
 
     public void anadirLinea(int x, int y, Graphics g) {
@@ -428,20 +444,10 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
                 xini += 5;
                 xfin += 5;
             }
+            g.setColor(Color.WHITE);
             g.drawLine(xini, yini, xfin, yfin);
         } catch (IndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "No se encontro circulo");
-        }
-    }
-
-    private void verificarCordenadas() {
-        setDatos();
-        Box_Origen.removeAllItems();
-        for (int j = 0; j < coordenadasXY[0].size(); j++) {
-            anadirCirculo(coordenadasXY[0].get(j), coordenadasXY[1].get(j), g);
-            g.setColor(Color.blue);
-            g.drawOval(coordenadasXY[0].get(j), coordenadasXY[1].get(j), 20, 20);
-            g.drawString(String.valueOf(contador), coordenadasXY[0].get(j) + 3, coordenadasXY[1].get(j) + 15);
         }
     }
 
@@ -449,9 +455,9 @@ public class Ventana extends JFrame implements ActionListener, MouseListener, Mo
     public void mouseClicked(MouseEvent e) {
         if (e.getButton() == 1) {
             B_Adyacencia.setVisible(true);
-            System.out.println("Evento circulo");
+//            System.out.println("Evento circulo");
             x = e.getX();
-            System.out.println("x es: " + x);
+//            System.out.println("x es: " + x);
             y = e.getY();
             g = P_Grafo.getGraphics();
             anadirCirculo(x, y, g);
